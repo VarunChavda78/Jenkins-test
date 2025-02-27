@@ -1,12 +1,24 @@
 pipeline {
     agent any
 
+    environment {
+        SONARQUBE_SERVER = 'SonarQube'  // The name you configured in Jenkins
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 script {
                     def branch = env.BRANCH_NAME ?: 'master' // Default to 'main' if not detected
                     git branch: branch, url: 'https://github.com/VarunChavda78/Jenkins-test.git'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
