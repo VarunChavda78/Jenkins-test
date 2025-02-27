@@ -18,7 +18,11 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat 'mvn sonar:sonar'
+                    script {
+                        docker.image('maven:3.9.6').inside {
+                            sh 'mvn sonar:sonar'
+                        }
+                    }
                 }
             }
         }
