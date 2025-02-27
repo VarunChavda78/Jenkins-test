@@ -10,3 +10,4 @@ cloud computing is good
 new Cloud for newbranch
 Sonarrrrrrrrrr in newbranch
 Sonar Second in newbranch
+docker added sonar
