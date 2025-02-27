@@ -19,13 +19,14 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     script {
-                        docker.image('maven:3.9.6').inside {
+                        docker.image('maven:3.9.6').inside('-w /var/jenkins_home/workspace/Test1') {
                             sh 'mvn sonar:sonar'
                         }
                     }
                 }
             }
         }
+
 
         stage('Build') {
             steps {
