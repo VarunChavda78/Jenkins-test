@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/VarunChavda78/Jenkins-test.git'
+                script {
+                    def branch = env.BRANCH_NAME ?: 'master' // Default to 'main' if not detected
+                    git branch: branch, url: 'https://github.com/VarunChavda78/Jenkins-test.git'
+                }
             }
         }
 
