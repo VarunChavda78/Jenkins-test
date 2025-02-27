@@ -1,32 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        SONARQUBE_SERVER = 'SonarQube'  // The name you configured in Jenkins
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 script {
-                    def branch = env.BRANCH_NAME ?: 'master' // Default to 'main' if not detected
+                    def branch = env.BRANCH_NAME ?: 'master' // Default to 'master' if not detected
                     git branch: branch, url: 'https://github.com/VarunChavda78/Jenkins-test.git'
                 }
             }
         }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    script {
-                        docker.image('maven:3.9.6').inside('-w /var/jenkins_home/workspace/Test1') {
-                            sh 'mvn sonar:sonar'
-                        }
-                    }
-                }
-            }
-        }
-
 
         stage('Build') {
             steps {
