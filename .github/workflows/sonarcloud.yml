@@ -1,4 +1,4 @@
-name: SonarCloud Analysis
+name: SonarQube Analysis
 
 on:
   pull_request:
@@ -7,17 +7,28 @@ on:
       - master
 
 jobs:
-  sonarcloud:
-    name: SonarCloud Scan
+  sonar:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Display Repository Contents (For Debugging)
-        run: ls -R
-
-      - name: Set Up SonarCloud Scanner
+      - name: Start SonarQube with Docker
         run: |
-          echo "No source code found to scan."
+          docker run -d --name sonar -p 9000:9000 sonarqube:lts
+          sleep 30 # Give some time for SonarQube to start
+
+      - name: Install Sonar Scanner
+        run: |
+          wget -O sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner.zip
+          mv sonar-scanner-5.0.1.3006-linux /opt/sonar-scanner
+          echo "/opt/sonar-scanner/bin" >> $GITHUB_PATH
+
+      - name: Run SonarQube Analysis
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.projectKey=your_project_key \
+            -Dsonar.sources=.
