@@ -8,3 +8,4 @@ i want to push this line in new branch
 This is second line for new branch
 cloud computing is good
 new Cloud for newbranch
+Sonarrrrrrrrrr in newbranch
