@@ -13,4 +13,4 @@ Sonar Second in newbranch
 docker added sonar
 dockkkkk son 2
 knifeifeifuei
-newbranch with EC2
+master with EC2
