@@ -18,3 +18,4 @@ new test with new branch 1
 new test with new branch 2
 new test with new branch 3
 enw test 
+ewn test with instance's Jenkins 
